@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+public class Solution1
+{
+	public String withoutString(String base, String remove)
+	{
+		String result = "";
+	  	int i = 0;
+		for(; i < base.length()-remove.length();)
+		{
+    			if(!(base.substring(i,i+remove.length()).equalsIgnoreCase(remove)))
+			{
+      				result = result + base.substring(i,i+1);
+      				i++;
+    			}
+    			else
+			{
+      				i = i + remove.length();
+    			}
+    			if(result.startsWith(" ")) result = result.substring(1);
+    			if(result.endsWith(" ") && base.substring(i,i+1).equals(" ")) result = result.substring(0,result.length()-1);
+  		}
+		  if(base.length()-i <= remove.length() && !(base.substring(i).equalsIgnoreCase(remove)))
+		{
+      			result = result + base.substring(i);
+  		}
+		return result;
+	}
+	public static void main(String args[])
+	{
+		Solution1 Se=new Solution1();
+		System.out.println(Se.withoutString("hello there","llo"));
+		System.out.println(Se.withoutString("hello there","e"));
+        System.out.println(Se.withoutString("hello there","x"));
+	}
+	}
