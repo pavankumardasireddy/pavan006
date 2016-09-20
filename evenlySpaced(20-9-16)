@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+
+public class evenlySpaced
+{
+  public static void main(String[] args)
+  {
+    int[][] data = {
+      { 2, 4, 6 }, //-> true                                        
+      { 4, 6, 2 }, //-> true
+      { 4, 6, 3 }  //-> false
+    };
+    for (int[] d: data)
+    {
+      System.out.printf("%s - %s%n", toList(d), areEvenlySpaced(toList(d)));
+    }
+  }
+  public static boolean areEvenlySpaced(List<Integer> list) 
+  {
+    Collections.sort(list, new Comparator<Integer>() 
+    {
+        public int compare(Integer i1, Integer i2) 
+        {
+        
+            return i2.compareTo(i1);
+        }
+    });
+    if (list != null && list.size() > 1) {
+      int lastDiff = list.get(0) - list.get(1);
+      for (int i = 1; i < list.size(); i++) {
+        int diff = Math.abs(list.get(i-1) - list.get(i));
+        if (lastDiff != diff) return false;
+        lastDiff = diff;
+      }
+      return true;
+    }
+    return false;
+  }
+  public static List<Integer> toList(int[] values) {
+    List<Integer> list = new ArrayList<Integer>(values.length);
+    for (int n : values) list.add(n);
+    return list;
+  }
+}
